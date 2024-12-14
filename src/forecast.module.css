@@ -1,0 +1,26 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.container {
+  width: 15rem;
+  padding: 2rem;
+  background-color: rgb(249, 250, 249);
+  background: transparent;
+  border-radius: 10%;
+  border: 1px solid rgb(197, 186, 186);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* background: url(./assets/pexels-pixabay-53594.jpg) no-repeat; */
+}
+
+.app_form {
+  text-align: center;
+  padding-top: 2rem;
+}
