@@ -13,14 +13,13 @@ function App() {
   function handleChange(e) {
     setCity(e.target.value);
   }
-  console.log(city);
 
-  // locatsiyani olish
+  console.log(data);
 
   // locatsiya bo'yicha ob-havo malumotini berish
   const fetchLocationWeather = async () => {
     try {
-      const response = await API.fetchByLocation(location.lat, location.lon);
+      const response = await API.fetchByLocation(location?.lat, location?.lon);
       console.log(response);
       setData(response);
     } catch (error) {
@@ -55,11 +54,11 @@ function App() {
     if (location?.lat && location?.lon) {
       fetchLocationWeather();
     }
-    setIsloading(true);
+    // setIsloading(true);
   }, [location?.lat, location?.lon]);
 
   // API dan ma'lumot kelmay qolganda ekranga loading yozuvini chiqarish
-  if (isloading || !data?.city?.name) {
+  if (isloading || !data?.city) {
     return <h1>Loading...</h1>;
   }
 
