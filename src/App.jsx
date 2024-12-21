@@ -11,6 +11,8 @@ function App() {
   const [city, setCity] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
 
+  console.log("city", city);
+
   // inputni qiymatini olish
   function handleChange(e) {
     setCity(e.target.value);

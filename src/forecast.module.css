@@ -1,8 +1,6 @@
 .container {
   width: 100%;
-  height: 100vh;
-
-  /* background: url(./assets/pexels-pixabay-53594.jpg) no-repeat; */
+  /* height: 100vh; */
 }
 
 .header {
@@ -56,14 +54,15 @@
   font-weight: 700;
 }
 
-/* section */
+/* App Section */
+
 .section {
   width: 100%;
   height: 18rem;
   padding-bottom: 1rem;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  background-color: rgb(8, 158, 155);
+  background-color: rgb(140, 200, 214);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,12 +75,11 @@
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
-  background-color: rgb(9, 129, 89);
-  color: #ffff;
+  background-color: rgb(92, 213, 226);
 }
 
 .data {
-  background-color: rgb(8, 158, 155);
+  background: none;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
@@ -90,7 +88,7 @@
 .section_item {
   width: 100%;
   height: 10rem;
-  color: #ffff;
+  font-weight: 700;
   display: flex;
   justify-content: start;
 }
