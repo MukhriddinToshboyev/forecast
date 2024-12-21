@@ -1,21 +1,12 @@
-.section {
-  overflow: auto;
-  height: 100vh;
+.container {
   width: 100%;
+  height: 100vh;
+
+  /* background: url(./assets/pexels-pixabay-53594.jpg) no-repeat; */
 }
 
-.container {
-  width: 15rem;
-  padding: 2rem;
-  background-color: rgb(249, 250, 249);
-  background: transparent;
-  border-radius: 10%;
-  border: 1px solid rgb(197, 186, 186);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  /* background: url(./assets/pexels-pixabay-53594.jpg) no-repeat; */
+.header {
+  width: 100%;
 }
 
 .app_form {
@@ -23,8 +14,101 @@
   padding-top: 2rem;
 }
 
+.app_form input {
+  width: 10rem;
+  height: 2rem;
+  color: green;
+  background: transparent;
+  border: 1px solid rgb(151, 17, 17);
+}
+
+.app_form button {
+  width: 5rem;
+  height: 2rem;
+  color: green;
+  background: transparent;
+  border: 1px solid rgb(151, 17, 17);
+  cursor: pointer;
+}
+
+.cityName {
+  width: 18rem;
+  height: 15rem;
+  margin-top: 2rem;
+  margin-bottom: 5.4rem;
+  border: 2px solid rgb(18, 174, 104);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.data_icon {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.temp {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* section */
+.section {
+  width: 100%;
+  height: 18rem;
+  padding-bottom: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  background-color: rgb(8, 158, 155);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .section_items {
+  width: 100%;
+  height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 1rem;
+  background-color: rgb(9, 129, 89);
+  color: #ffff;
+}
+
+.data {
+  background-color: rgb(8, 158, 155);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.section_item {
+  width: 100%;
+  height: 10rem;
+  color: #ffff;
+  display: flex;
+  justify-content: start;
+}
+
+.hourly {
+  display: flex;
+  flex-direction: column;
+}
+
+.newDate {
+  width: 100%;
+  margin-top: 1rem;
+  margin-left: 0;
+  display: flex;
+}
+
+.weather {
+  text-align: center;
+  width: 10rem;
+  height: 5rem;
 }

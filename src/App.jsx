@@ -2,65 +2,51 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import styles from "./forecast.module.css";
 import { API } from "./services/api";
+import { getFiveDayForecast } from "./utils";
 
 function App() {
   const [data, setData] = useState(null);
   const [location, setLocation] = useState({});
   const [isloading, setIsloading] = useState(false);
   const [city, setCity] = useState(null);
-  const [newList, setNewList] = useState({});
-  const [newDate, setNewDate] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(null);
 
   // inputni qiymatini olish
   function handleChange(e) {
     setCity(e.target.value);
   }
 
-  console.log(data);
-
-  // if()
-
   // locatsiya bo'yicha ob-havo malumotini berish
   const fetchLocationWeather = async () => {
+    setIsloading(true);
     try {
       const response = await API.fetchByLocation(location?.lat, location?.lon);
-      console.log(response);
-      setData(response);
-      setNewList(response?.list);
+      const modefadeData = getFiveDayForecast(response);
+      console.log("forecast", getFiveDayForecast(response));
+      setData(modefadeData);
+      setSelectedDay(modefadeData[0]);
     } catch (error) {
       console.log("error", error);
     }
+    setIsloading(false);
   };
 
   // shaxar nomi bo'yicha ob-havo malumotini berish
   const fetchCityWeather = async (event) => {
     event.preventDefault();
+    setIsloading(true);
     try {
       const city = event.target?.[0].value;
       const response = await API.fetchByCityName(city);
-
-      setData(response);
-      // setNewList(response?.list);
+      const modefadeData = getFiveDayForecast(response);
+      setData(modefadeData);
+      setSelectedDay(modefadeData[0]);
+      event.target[0].value = "";
     } catch (error) {
       console.log("error", error);
     }
+    setIsloading(false);
   };
-
-  // list ichidagi malumotlarni 5 kunlik ma'lumotlarga ajratish
-  useEffect(() => {
-    const newDate = [];
-    for (let i = 0; i < newList?.length; i++) {
-      const item = newList[i];
-      const date = item?.dt_txt.split(" ")[0];
-      if (!newDate[date]) {
-        newDate[date] = [];
-      }
-      newDate[date].push(item);
-    }
-    setNewDate(newDate);
-  }, []);
-
-  console.log(newDate);
 
   // geolocatsiyani olish
   useEffect(() => {
@@ -77,78 +63,73 @@ function App() {
     if (location?.lat && location?.lon) {
       fetchLocationWeather();
     }
-    // setIsloading(true);
   }, [location?.lat, location?.lon]);
 
   // API dan ma'lumot kelmay qolganda ekranga loading yozuvini chiqarish
-  if (isloading || !data?.city) {
+  if (isloading || !data?.length) {
     return <h1>Loading...</h1>;
   }
 
-  // const name = data?.city?.name;
-  // const sunrise = new Date(data?.city?.sunrise * 1000).toLocaleTimeString();
-  // const sunset = new Date(data?.city?.sunset * 1000).toLocaleTimeString();
-
-  // const sana = data?.list?.[1].dt_txt;
-  // console.log("sana", date);
-
-  const date =
-    new Date(newList?.[0].dt * 1000).toLocaleDateString().substring(0, 2) - 1;
-
-  const sana = newList?.[0].dt_txt.substring(8, 10);
-
-  console.log("date", date);
-  console.log("sana", sana);
-
-  // console.log(new Date().toLocaleDateString());
-
-  // const feelsLike = Math.round(data?.list?.[1].main?.feels_like);
-  // const temp = Math.round(data?.list?.[1].main?.temp);
-  // const weather = data?.list?.[1].weather?.[0]?.main;
-  // const humidity = data?.list?.[1].main?.humidity;
-  // const visibility = (data?.list?.[1].visibility / 1000).toFixed(2);
-  // const weatherIconUrl = `http://openweathermap.org/img/w/ ${data?.list?.[1].weather?.[0]?.icon}.png`;
+  const dataIcon = data?.[0].icon;
+  const name = data?.[0].cityName;
+  const feelLike = data?.[0].feelLike;
+  const status = data?.[0].status;
+  const humdity = data?.[0].humidity;
+  const currentTemp = data?.[0].currentTemp;
 
   return (
     <div className="app-container">
-      <form className={styles.app_form} onSubmit={fetchCityWeather}>
-        <input
-          type="text"
-          onChange={handleChange}
-          placeholder="Shahar nomini kiriting"
-        />
-        <button type="submit">Search</button>
-      </form>
-      <section className={styles.section}>
-        <div className={styles.section_items}>
-          {Object.keys(newDate).map((date) => (
-            <div key={date}>
-              <h2>{date}</h2>
-              {newDate[date].map((item, index) => {
-                <div key={index}>
-                  <p>{item?.main.temp}</p>
-                </div>;
-              })}
-            </div>
-          ))}
-        </div>
-
-        {/* <div className={styles.container}>
-          <div>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <form className={styles.app_form} onSubmit={fetchCityWeather}>
+            <input
+              type="text"
+              onChange={handleChange}
+              placeholder="Shahar nomini kiriting"
+            />
+            <button type="submit">Search</button>
+          </form>
+          <div className={styles.cityName}>
+            <h1>
+              <img className={styles.data_icon} src={dataIcon} alt="icon" />
+              {name}
+            </h1>
+            <p className={styles.temp}>{currentTemp}°C</p>
+            <p> Holat: {status} </p>
+            <p> Tuyuladi: {feelLike} °C</p>
+            <p> Namlik: {humdity}%</p>
           </div>
-
-          <p className={styles.text}> Quyosh chiqishi: {sunrise} </p>
-          <p className={styles.text}> Quyosh botishi: {sunset} </p>
-        </div>
-        <div className={styles.containerr}>
-          <p className={styles.text}> {sana} </p>
-          <p className={styles.text}> Harorat: {temp}°C</p>
-          <p className={styles.text}> Tuyuladi: {feelsLike} °C</p>
-          <p className={styles.text}> Holat: {weather} </p>
-          <p className={styles.text}> Ko'ruvchanlik: {visibility} km</p>
-          <p className={styles.text}> Namlik: {humidity}% </p>
-        </div> */}
-      </section>
+        </header>
+        <section className={styles.section}>
+          <div className={styles.section_items}>
+            {data?.map((day) => {
+              const days = day?.date?.split(" ")?.[0];
+              return (
+                <div key={day.date}>
+                  <button
+                    className={styles.data}
+                    onClick={() => setSelectedDay(day)}
+                  >
+                    {days}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.section_item}>
+            {selectedDay?.hourly.map((hour) => (
+              <div key={hour.time} className={styles.hourly}>
+                <img src={hour.icon} alt="icon" />
+                <p>
+                  {hour.minTemp}/{hour.maxTemp}°C
+                </p>
+                <p>{hour.status}</p>
+                <p>{hour.time}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
