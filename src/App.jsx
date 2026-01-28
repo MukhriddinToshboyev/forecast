@@ -67,10 +67,10 @@ function App() {
     }
   }, [location?.lat, location?.lon]);
 
-  // API dan ma'lumot kelmay qolganda ekranga loading yozuvini chiqarish
   if (isloading || !data?.length) {
     return <h1>Loading...</h1>;
   }
+  // API dan ma'lumot kelmay qolganda ekranga loading yozuvini chiqarish
 
   const dataIcon = data?.[0].icon;
   const name = data?.[0].cityName;
