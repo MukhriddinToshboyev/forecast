@@ -4,6 +4,12 @@
   /* width: 100%; */
 }
 
-.app-container {
+.app_container {
   background: url(./assets/pexels-pixabay-53594.jpg);
+}
+
+.app_clear {
+  background: url(./assets/image.png) no-repeat center center/cover;
+  /* width: 100%;
+  min-height: 100vh; */
 }

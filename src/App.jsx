@@ -80,7 +80,11 @@ function App() {
   const currentTemp = data?.[0].currentTemp;
 
   return (
-    <div className="app-container">
+    <div
+      className={
+        selectedDay.status === " Clear" ? "app_clear" : "app_container"
+      }
+    >
       <div className={styles.container}>
         <header className={styles.header}>
           <form className={styles.app_form} onSubmit={fetchCityWeather}>
