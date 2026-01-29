@@ -88,6 +88,7 @@ function App() {
               type="text"
               onChange={handleChange}
               placeholder="Shahar nomini kiriting"
+              required
             />
             <button type="submit">Search</button>
           </form>
