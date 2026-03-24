@@ -44,7 +44,7 @@ function App() {
       const modefadeData = getFiveDayForecast(response);
       setData(modefadeData);
       setSelectedDay(modefadeData[0]);
-      setCity("");
+
       event.target[0].value = "";
     } catch (error) {
       console.log("error", error);
@@ -92,7 +92,6 @@ function App() {
           <form className={styles.app_form} onSubmit={fetchCityWeather}>
             <input
               type="text"
-              value={city || ""}
               onChange={handleChange}
               placeholder="Shahar nomini kiriting"
               required
