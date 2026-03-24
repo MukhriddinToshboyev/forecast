@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import styles from "./forecast.module.css";
 import { API } from "./services/api";
@@ -19,7 +19,7 @@ function App() {
   }
 
   // locatsiya bo'yicha ob-havo malumotini berish
-  const fetchLocationWeather = async () => {
+  const fetchLocationWeather = useCallback(async () => {
     setIsloading(true);
     try {
       const response = await API.fetchByLocation(location?.lat, location?.lon);
@@ -29,9 +29,10 @@ function App() {
       setSelectedDay(modefadeData[0]);
     } catch (error) {
       console.log("error", error);
+    } finally {
+      setIsloading(false);
     }
-    setIsloading(false);
-  };
+  }, [location]);
 
   // shaxar nomi bo'yicha ob-havo malumotini berish
   const fetchCityWeather = async (event) => {
@@ -65,7 +66,7 @@ function App() {
     if (location?.lat && location?.lon) {
       fetchLocationWeather();
     }
-  }, [location?.lat, location?.lon]);
+  }, [location?.lat, location?.lon, fetchLocationWeather]);
 
   if (isloading || !data?.length) {
     return <h1>Loading...</h1>;

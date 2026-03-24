@@ -11,6 +11,7 @@
 }
 
 .app_form {
+  margin-top: 2rem;
   text-align: center;
   padding-top: 2rem;
   border-radius: 30px;
@@ -42,7 +43,7 @@
 }
 
 .cityName {
-  width: 15rem;
+  width: 18rem;
   height: 15rem;
   margin-top: 2rem;
   margin-bottom: 5.4rem;
